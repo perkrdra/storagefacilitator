@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Self-Storage Facility Planner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="planner" class="p-4 font-sans">
+      <div class="mb-6">
+        <h1
+          class="text-2xl font-bold text-gray-800 mb-2"
+          id="property-name-display"
+        >
+          My Self-Storage Facility
+        </h1>
+
+        <div class="flex flex-wrap gap-4 mb-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Property Name</label
+            >
+            <input
+              type="text"
+              id="property-name-input"
+              value="My Self-Storage Facility"
+              class="border rounded px-2 py-1 w-48"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Total Area (m²)</label
+            >
+            <input
+              type="number"
+              id="total-area-input"
+              value="1500"
+              min="25"
+              step="1"
+              class="border rounded px-2 py-1 w-32"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Phase</label
+            >
+            <select id="phase-select" class="border rounded px-2 py-1 w-32">
+              <option value="1">Phase 1 (Initial)</option>
+              <option value="2">Phase 2 (Expansion)</option>
+              <option value="3">Phase 3 (Complete)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <h2 class="text-lg font-medium text-blue-800 mb-3">Key Metrics</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white rounded p-3 shadow-sm">
+              <h3 class="text-sm font-medium text-gray-700 mb-1">Total Area</h3>
+              <p class="text-lg font-bold" id="total-area-display">1500.0 m²</p>
+            </div>
+            <div class="bg-white rounded p-3 shadow-sm">
+              <h3 class="text-sm font-medium text-gray-700 mb-1">
+                Rentable Area & Utilization
+              </h3>
+              <p class="text-lg font-bold" id="rentable-area-display">0.0 m²</p>
+              <p class="text-sm text-gray-600 mt-1">
+                Utilization: <span id="utilization-display">0.0%</span>
+              </p>
+              <p class="text-xs text-gray-500 mt-1">
+                Industry standard: 65-75%. Higher values mean more rentable
+                space but narrower corridors.
+              </p>
+            </div>
+            <div class="bg-white rounded p-3 shadow-sm">
+              <h3 class="text-sm font-medium text-gray-700 mb-1">
+                Monthly Revenue
+              </h3>
+              <p class="text-lg font-bold" id="monthly-revenue-display">
+                €0.00
+              </p>
+              <p class="text-xs text-gray-500 mt-1" id="occupancy-rate-note">
+                Based on 85% occupancy rate
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualization Controls -->
+        <div class="mb-6">
+          <div class="flex flex-wrap gap-4 mb-4">
+            <button
+              id="financial-view-btn"
+              class="px-3 py-1 rounded bg-blue-600 text-white"
+            >
+              Financial View
+            </button>
+            <button
+              id="layout-view-btn"
+              class="px-3 py-1 rounded bg-gray-200 text-gray-800"
+            >
+              Layout Charts
+            </button>
+            <button
+              id="breakeven-view-btn"
+              class="px-3 py-1 rounded bg-gray-200 text-gray-800"
+            >
+              Breakeven Analysis
+            </button>
+          </div>
+        </div>
+
+        <!-- Unit Mix Ratios -->
+        <div class="mb-6">
+          <h2 class="text-lg font-medium text-gray-800 mb-2">
+            Unit Mix Ratios
+          </h2>
+
+          <!-- Mix Presets -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Mix Presets</label
+            >
+            <div class="flex flex-wrap gap-2" id="mix-presets-container">
+              <button
+                id="preset-custom"
+                class="px-3 py-1 text-sm rounded bg-blue-600 text-white"
+              >
+                Custom Mix
+              </button>
+              <button
+                id="preset-urban"
+                class="px-3 py-1 text-sm rounded bg-gray-200 text-gray-800"
+              >
+                Urban Focus
+              </button>
+              <button
+                id="preset-suburban"
+                class="px-3 py-1 text-sm rounded bg-gray-200 text-gray-800"
+              >
+                Suburban Standard
+              </button>
+              <button
+                id="preset-business"
+                class="px-3 py-1 text-sm rounded bg-gray-200 text-gray-800"
+              >
+                Business Focus
+              </button>
+              <button
+                id="preset-balanced"
+                class="px-3 py-1 text-sm rounded bg-gray-200 text-gray-800"
+              >
+                Perfectly Balanced
+              </button>
+            </div>
+            <p
+              id="preset-description"
+              class="text-xs text-gray-600 mt-1 hidden"
+            ></p>
+          </div>
+
+          <!-- Total Mix Percentage Indicator -->
+          <div
+            id="mix-total-indicator"
+            class="mb-3 bg-yellow-50 border border-yellow-200 rounded p-2 hidden"
+          >
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-yellow-800">
+                Total Mix: <strong id="mix-total-value">0%</strong>
+              </span>
+              <button
+                id="auto-balance-btn"
+                class="bg-blue-600 text-white text-xs px-2 py-1 rounded"
+              >
+                Auto-Balance to 100%
+              </button>
+            </div>
+            <div class="w-full bg-gray-200 h-2 rounded-full mt-2">
+              <div
+                id="mix-total-bar"
+                class="h-full rounded-full bg-yellow-500"
+                style="width: 0%"
+              ></div>
+            </div>
+            <p id="mix-total-message" class="text-xs text-gray-600 mt-1">
+              Your unit mix totals less than 100%. Click 'Auto-Balance' to
+              proportionally adjust all values.
+            </p>
+          </div>
+
+          <div
+            class="grid grid-cols-1 md:grid-cols-5 gap-4"
+            id="unit-types-container"
+          >
+            <!-- Unit type cards will be dynamically generated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Areas -->
+      <div
+        id="financial-view"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6"
+      >
+        <div>
+          <h3 class="text-lg font-medium text-gray-700 mb-2">Unit Summary</h3>
+          <table class="min-w-full border border-gray-300 bg-white">
+            <thead class="bg-gray-100">
+              <tr>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Unit Size
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Area
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Count
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Total Area
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Monthly Revenue
+                </th>
+              </tr>
+            </thead>
+            <tbody id="unit-summary-table">
+              <!-- Unit summary rows will be dynamically generated -->
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-medium text-gray-700 mb-2">
+            Financial Projection
+          </h3>
+          <table class="min-w-full border border-gray-300 bg-white">
+            <thead class="bg-gray-100">
+              <tr>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Metric
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Monthly
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Annual
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2 text-sm text-gray-700 font-medium">
+                  Gross Revenue
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700"
+                  id="financial-monthly-revenue"
+                >
+                  €0.00
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700"
+                  id="financial-annual-revenue"
+                >
+                  €0.00
+                </td>
+              </tr>
+              <tr class="border-b hover:bg-gray-50 bg-gray-50">
+                <td class="px-4 py-2 text-sm text-gray-700 font-medium">
+                  Operating Expenses
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700"
+                  id="financial-monthly-expenses"
+                >
+                  €0.00
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700"
+                  id="financial-annual-expenses"
+                >
+                  €0.00
+                </td>
+              </tr>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2 text-sm text-gray-700 font-medium">
+                  Net Operating Income
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  id="financial-monthly-noi"
+                >
+                  €0.00
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  id="financial-annual-noi"
+                >
+                  €0.00
+                </td>
+              </tr>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2 text-sm text-gray-700">Revenue per m²</td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700"
+                  id="financial-revenue-per-sqm"
+                  colspan="2"
+                >
+                  €0.00/m²/month
+                </td>
+              </tr>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2 text-sm text-gray-700">
+                  Space Utilization
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700"
+                  id="financial-utilization"
+                  colspan="2"
+                >
+                  0.0%
+                </td>
+              </tr>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2 text-sm text-gray-700">NOI Margin</td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700"
+                  id="financial-noi-margin"
+                  colspan="2"
+                >
+                  0.0%
+                </td>
+              </tr>
+              <tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-2 text-sm text-gray-700">
+                  Investment Return (ROI)
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700"
+                  id="financial-roi"
+                  colspan="2"
+                >
+                  0.0% annually
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mt-4 bg-white border rounded">
+            <div class="px-4 py-3 bg-gray-100 border-b">
+              <h4 class="text-sm font-medium text-gray-700">
+                Operating Expenses
+              </h4>
+            </div>
+            <div class="p-4">
+              <div class="mb-3">
+                <div class="flex justify-between mb-1">
+                  <span class="text-xs text-gray-700">Total Expense Ratio</span>
+                  <span
+                    class="text-xs text-gray-700 font-medium"
+                    id="expense-ratio-display"
+                    >35.0%</span
+                  >
+                </div>
+                <input
+                  type="range"
+                  min="20"
+                  max="60"
+                  step="1"
+                  value="35"
+                  id="expense-ratio-slider"
+                  class="w-full"
+                />
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>Low (20%)</span>
+                  <span>Industry Avg (35-40%)</span>
+                  <span>High (60%)</span>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <div class="flex justify-between mb-1">
+                  <span class="text-xs text-gray-700">Occupancy Rate</span>
+                  <span
+                    class="text-xs text-gray-700 font-medium"
+                    id="occupancy-rate-display"
+                    >85%</span
+                  >
+                </div>
+                <input
+                  type="range"
+                  min="50"
+                  max="100"
+                  step="1"
+                  value="85"
+                  id="occupancy-rate-slider"
+                  class="w-full"
+                />
+                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>Low (50%)</span>
+                  <span>Industry Avg (80-90%)</span>
+                  <span>High (100%)</span>
+                </div>
+              </div>
+
+              <div class="bg-blue-50 p-2 rounded text-xs text-gray-700 mb-3">
+                <p>
+                  Typical self-storage expenses include property taxes (5-15%),
+                  insurance (2-4%), utilities (3-6%), maintenance (3-7%), staff
+                  (10-15%), and marketing (3-8%).
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <h5 class="text-xs font-medium text-gray-700 mb-2">
+                    Key Expense Categories:
+                  </h5>
+                  <ul class="text-xs text-gray-600 list-disc pl-4 mb-0">
+                    <li>Property Taxes</li>
+                    <li>Insurance</li>
+                    <li>Utilities</li>
+                    <li>Maintenance/Repairs</li>
+                    <li>Staff/Management</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 class="text-xs font-medium text-gray-700 mb-2">
+                    Financial Metrics:
+                  </h5>
+                  <div class="text-xs text-gray-600">
+                    <div class="flex justify-between mb-1">
+                      <span>Expense Ratio:</span>
+                      <span id="financial-expense-ratio">35.0%</span>
+                    </div>
+                    <div class="flex justify-between mb-1">
+                      <span>NOI Margin:</span>
+                      <span id="financial-noi-margin-summary">65.0%</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>Annual NOI:</span>
+                      <span id="financial-annual-noi-summary">€0.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="layout-view"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 hidden"
+      >
+        <div class="bg-white p-4 rounded-lg border">
+          <h3 class="text-lg font-medium text-gray-700 mb-4">
+            Revenue by Unit Type
+          </h3>
+          <div id="revenue-chart" style="width: 100%; height: 300px"></div>
+        </div>
+
+        <div class="bg-white p-4 rounded-lg border">
+          <h3 class="text-lg font-medium text-gray-700 mb-4">
+            Unit Mix Distribution
+          </h3>
+          <div id="unit-mix-chart" style="width: 100%; height: 300px"></div>
+        </div>
+
+        <div class="md:col-span-2 bg-white p-4 rounded-lg border">
+          <h3 class="text-lg font-medium text-gray-700 mb-4">
+            Space Allocation
+          </h3>
+          <div class="flex mb-4">
+            <div class="flex-1 border-r pr-2">
+              <h4 class="text-sm font-medium mb-2">Rentable Area</h4>
+              <div class="flex gap-2 items-center">
+                <div class="bg-green-500 w-3 h-3 rounded-full"></div>
+                <div class="text-sm" id="space-rentable-area">
+                  0.0 m² (0.0%)
+                </div>
+              </div>
+            </div>
+            <div class="flex-1 pl-2">
+              <h4 class="text-sm font-medium mb-2">Corridor/Common Space</h4>
+              <div class="flex gap-2 items-center">
+                <div class="bg-gray-400 w-3 h-3 rounded-full"></div>
+                <div class="text-sm" id="space-common-area">0.0 m² (0.0%)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="w-full bg-gray-200 h-6 rounded-full overflow-hidden">
+            <div
+              id="space-utilization-bar"
+              class="bg-green-500 h-full rounded-full"
+              style="width: 0%"
+            ></div>
+          </div>
+
+          <div class="mt-4 text-xs text-gray-600">
+            <p>
+              Industry standard space utilization is between 65-75%. Higher
+              values indicate more efficient use of space but may compromise
+              customer experience with narrower corridors or restricted access.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="breakeven-view"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 hidden"
+      >
+        <div class="bg-white p-4 rounded-lg border">
+          <h3 class="text-lg font-medium text-gray-700 mb-4">
+            Investment Analysis
+          </h3>
+
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              Construction Cost per m²
+            </label>
+            <div class="flex gap-2">
+              <input
+                type="number"
+                id="construction-cost-input"
+                value="350"
+                min="100"
+                step="10"
+                class="border rounded px-2 py-1 w-32"
+              />
+              <span class="text-sm text-gray-600 self-center">€/m²</span>
+            </div>
+          </div>
+
+          <table class="min-w-full border border-gray-300">
+            <tbody>
+              <tr class="border-b">
+                <td class="px-4 py-2 text-sm text-gray-700">
+                  Total Construction Cost
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  id="total-construction-cost"
+                >
+                  €0.00
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-4 py-2 text-sm text-gray-700">Annual NOI</td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  id="breakeven-annual-noi"
+                >
+                  €0.00
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-4 py-2 text-sm text-gray-700">
+                  Return on Investment (ROI)
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  id="breakeven-roi"
+                >
+                  0.00% annually
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-4 py-2 text-sm text-gray-700">
+                  Break-even Period
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  id="breakeven-period"
+                >
+                  0.0 years
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-4 py-2 text-sm text-gray-700">Cost per Unit</td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  id="cost-per-unit"
+                >
+                  €0.00
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="mt-4 bg-blue-50 p-3 rounded text-sm">
+            <p class="font-medium text-blue-800 mb-1">Investment Notes:</p>
+            <ul class="text-xs text-gray-700 list-disc pl-4 mb-0">
+              <li>
+                Industry average ROI for self-storage facilities is between
+                6-10%
+              </li>
+              <li>Break-even periods typically range from 8-12 years</li>
+              <li>
+                Consider phased development to reduce initial capital
+                requirements
+              </li>
+              <li>
+                Banks typically require 25-35% equity for self-storage loans
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-lg border">
+          <h3 class="text-lg font-medium text-gray-700 mb-4">
+            Phased Development Plan
+          </h3>
+
+          <p class="text-sm text-gray-600 mb-4">
+            A phased approach allows you to spread the investment over time
+            while generating revenue to help fund future phases.
+          </p>
+
+          <table class="min-w-full border border-gray-300">
+            <thead class="bg-gray-100">
+              <tr>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Phase
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Area (m²)
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Investment
+                </th>
+                <th
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                >
+                  Annual Revenue
+                </th>
+              </tr>
+            </thead>
+            <tbody id="phase-data-table">
+              <!-- Phase data rows will be dynamically generated -->
+            </tbody>
+          </table>
+
+          <div
+            class="mt-4 bg-yellow-50 p-3 rounded text-sm border border-yellow-100"
+          >
+            <p class="font-medium text-yellow-800 mb-1">
+              Phasing Considerations:
+            </p>
+            <ul class="text-xs text-gray-700 list-disc pl-4 mb-0">
+              <li>
+                Phase 1: Build core facility with essential infrastructure
+              </li>
+              <li>Phase 2: Expand based on demand patterns from Phase 1</li>
+              <li>
+                Phase 3: Complete the facility to maximize economies of scale
+              </li>
+              <li>
+                Later phases typically have higher occupancy ramp-up speed
+              </li>
+              <li>
+                Consider adjusting unit mix in later phases based on actual
+                demand
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check if Chart.js is loaded
+        if (typeof Chart === "undefined") {
+          console.error("Chart.js is not loaded");
+        } else {
+          console.log("Chart.js is loaded successfully");
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
