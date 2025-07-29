@@ -199,9 +199,11 @@ document.addEventListener("DOMContentLoaded", function () {
     marketNavBtn: document.getElementById("market-nav-btn"),
     operationalNavBtn: document.getElementById("operational-nav-btn"),
     financialNavBtn: document.getElementById("financial-nav-btn"),
+    suppliersNavBtn: document.getElementById("suppliers-nav-btn"),
     marketSubnav: document.getElementById("market-subnav"),
     operationalSubnav: document.getElementById("operational-subnav"),
     financialSubnav: document.getElementById("financial-subnav"),
+    suppliersSubnav: document.getElementById("suppliers-subnav"),
 
     // View controls
     financialViewBtn: document.getElementById("financial-view-btn"),
@@ -245,6 +247,8 @@ document.addEventListener("DOMContentLoaded", function () {
     financialAnnualExpenses: document.getElementById(
       "financial-annual-expenses"
     ),
+    financialMonthlyInterest: document.getElementById("financial-monthly-interest"),
+    financialAnnualInterest: document.getElementById("financial-annual-interest"),
     financialMonthlyNOI: document.getElementById("financial-monthly-noi"),
     financialAnnualNOI: document.getElementById("financial-annual-noi"),
     financialRevenuePerSqm: document.getElementById(
@@ -280,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
     marketingCost: document.getElementById("marketing-cost"),
     legalCost: document.getElementById("legal-cost"),
     totalOpex: document.getElementById("total-opex"),
+    totalMonthlyOpexDisplay: document.getElementById("total-monthly-opex-display"),
     opexRatio: document.getElementById("opex-ratio"),
     annualOpex: document.getElementById("annual-opex"),
     opexPerSqm: document.getElementById("opex-per-sqm"),
@@ -604,6 +609,14 @@ document.addEventListener("DOMContentLoaded", function () {
     elements.leaseupRateInput.addEventListener("input", updateLeaseupRate);
     elements.rampupMonthsInput.addEventListener("input", updateRampupMonths);
 
+    // Set up event listeners for loan parameters to update financial projection
+    if (elements.loanAmountInput) {
+      elements.loanAmountInput.addEventListener("input", calculateFinancialMetrics);
+    }
+    if (elements.interestRateInput) {
+      elements.interestRateInput.addEventListener("input", calculateFinancialMetrics);
+    }
+
     // Set up event listeners for market analysis controls
     elements.siteAddressInput.addEventListener("input", updateMarketAnalysis);
     elements.populationDensityInput.addEventListener("input", updateMarketAnalysis);
@@ -643,6 +656,7 @@ document.addEventListener("DOMContentLoaded", function () {
     elements.marketNavBtn.addEventListener("click", () => setMainNav("market"));
     elements.operationalNavBtn.addEventListener("click", () => setMainNav("operational"));
     elements.financialNavBtn.addEventListener("click", () => setMainNav("financial"));
+    elements.suppliersNavBtn.addEventListener("click", () => setMainNav("suppliers"));
 
     // Set up event listeners for view controls
     elements.financialViewBtn.addEventListener("click", () =>
@@ -702,6 +716,9 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log('layoutView:', elements.layoutView);
     console.log('suppliersView:', elements.suppliersView);
     setVisualMode("market");
+    
+    // Initialize market viability calculation
+    updateMarketAnalysis();
   }
 
   // Apply a preset for unit mix ratios
@@ -901,6 +918,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Update displays
     elements.totalOpex.textContent = totalMonthlyOpex.toLocaleString();
+    elements.totalMonthlyOpexDisplay.textContent = totalMonthlyOpex.toLocaleString();
     elements.annualOpex.textContent = '€' + (totalMonthlyOpex * 12).toLocaleString();
     elements.opexPerSqm.textContent = '€' + (totalMonthlyOpex / state.totalArea).toFixed(1);
     
@@ -933,37 +951,36 @@ document.addEventListener("DOMContentLoaded", function () {
   function setMainNav(navMode) {
     console.log('Setting main nav to:', navMode);
     
-    // Update main nav button states
-    elements.marketNavBtn.classList.remove("border-blue-600", "bg-blue-50", "text-blue-700");
-    elements.marketNavBtn.classList.add("border-transparent", "text-gray-600");
-    
-    elements.operationalNavBtn.classList.remove("border-blue-600", "bg-blue-50", "text-blue-700");
-    elements.operationalNavBtn.classList.add("border-transparent", "text-gray-600");
-    
-    elements.financialNavBtn.classList.remove("border-blue-600", "bg-blue-50", "text-blue-700");
-    elements.financialNavBtn.classList.add("border-transparent", "text-gray-600");
+    // Reset all nav button styles
+    [elements.marketNavBtn, elements.operationalNavBtn, elements.financialNavBtn, elements.suppliersNavBtn].forEach(btn => {
+      btn.style.borderBottom = "2px solid transparent";
+      btn.style.background = "#141d2c";
+      btn.style.color = "#fff";
+    });
     
     // Hide all subnavs
     elements.marketSubnav.classList.add("hidden");
     elements.operationalSubnav.classList.add("hidden");
     elements.financialSubnav.classList.add("hidden");
+    elements.suppliersSubnav.classList.add("hidden");
     
     // Show selected nav and subnav
     if (navMode === "market") {
-      elements.marketNavBtn.classList.remove("border-transparent", "text-gray-600");
-      elements.marketNavBtn.classList.add("border-blue-600", "bg-blue-50", "text-blue-700");
+      elements.marketNavBtn.style.borderBottom = "2px solid #78A1BB";
       elements.marketSubnav.classList.remove("hidden");
       setVisualMode("market");
     } else if (navMode === "operational") {
-      elements.operationalNavBtn.classList.remove("border-transparent", "text-gray-600");
-      elements.operationalNavBtn.classList.add("border-blue-600", "bg-blue-50", "text-blue-700");
+      elements.operationalNavBtn.style.borderBottom = "2px solid #78A1BB";
       elements.operationalSubnav.classList.remove("hidden");
       setVisualMode("layout");
     } else if (navMode === "financial") {
-      elements.financialNavBtn.classList.remove("border-transparent", "text-gray-600");
-      elements.financialNavBtn.classList.add("border-blue-600", "bg-blue-50", "text-blue-700");
+      elements.financialNavBtn.style.borderBottom = "2px solid #78A1BB";
       elements.financialSubnav.classList.remove("hidden");
       setVisualMode("financial");
+    } else if (navMode === "suppliers") {
+      elements.suppliersNavBtn.style.borderBottom = "2px solid #78A1BB";
+      elements.suppliersSubnav.classList.remove("hidden");
+      setVisualMode("suppliers");
     }
   }
 
@@ -1456,12 +1473,9 @@ document.addEventListener("DOMContentLoaded", function () {
       card.style.borderColor = type.color;
 
       card.innerHTML = `
-        <div class="flex justify-between mb-2">
+        <div class="mb-2">
           <span class="text-sm font-medium text-gray-700">
             ${type.name} (${type.area} m²)
-          </span>
-          <span class="text-sm font-medium" style="color: ${type.color}">
-            ${type.count} units
           </span>
         </div>
         
@@ -1516,6 +1530,9 @@ document.addEventListener("DOMContentLoaded", function () {
             class="border rounded px-2 py-1 w-20 unit-price-input"
             data-unit-id="${type.id}"
           />
+          <div class="mt-1">
+            <span class="text-xs text-gray-500">Total area: ${(type.count * type.area).toFixed(0)} m²</span>
+          </div>
         </div>
       `;
 
@@ -1911,8 +1928,16 @@ document.addEventListener("DOMContentLoaded", function () {
     elements.financialAnnualExpenses.textContent =
       formatCurrency(annualExpenses);
 
-    // NOI metrics
-    const monthlyNOI = state.monthlyRevenue * (1 - state.expenseRatio);
+    // Interest expense metrics
+    const loanAmount = parseFloat(elements.loanAmountInput?.value) || 500000;
+    const interestRate = parseFloat(elements.interestRateInput?.value) || 5.5;
+    const monthlyInterest = (loanAmount * (interestRate / 100)) / 12;
+    const annualInterest = monthlyInterest * 12;
+    elements.financialMonthlyInterest.textContent = formatCurrency(monthlyInterest);
+    elements.financialAnnualInterest.textContent = formatCurrency(annualInterest);
+
+    // NOI metrics (now including interest expense)
+    const monthlyNOI = state.monthlyRevenue * (1 - state.expenseRatio) - monthlyInterest;
     const annualNOI = monthlyNOI * 12;
     elements.financialMonthlyNOI.textContent = formatCurrency(monthlyNOI);
     elements.financialAnnualNOI.textContent = formatCurrency(annualNOI);
@@ -2380,6 +2405,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Update overall score
     elements.viabilityScore.textContent = overall;
     elements.viabilityBar.style.width = `${overall}%`;
+
+    // Update the key metric card with the overall viability score
+    const marketViabilityDisplay = document.getElementById('market-viability-display');
+    if (marketViabilityDisplay) {
+      marketViabilityDisplay.textContent = `${overall}/100`;
+    }
 
     // Update recommendation
     updateViabilityRecommendation(overall);

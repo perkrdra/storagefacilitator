@@ -5,141 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Self-Storage Facility Planner</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="./favicon.ico" type="image/x-icon">
   </head>
-  <body>
+  <body style="background-color: #141d2c;">
     <div id="planner" class="p-4 font-sans">
       <!-- Header with Contact Section -->
-      <div class="flex justify-between items-center mb-8" style="margin-left: 80px; margin-right: 48px;">
-        <h1 class="text-2xl font-bold text-gray-800">
-          Self-Storage Facility Planner
-        </h1>
+      <div class="mb-8 flex justify-between items-center" style="margin-left: 80px; margin-right: 48px;">
+        <div>
+          <div class="mb-2">
+            <img src="Logo_facility_planner.jpg" alt="Facility Planner Logo" style="max-width: 280px; height: auto;">
+          </div>
+        </div>
         
-        <!-- Expert Consulting CTA -->
+        <!-- Expert Consulting Button -->
         <a 
           href="/consulting" 
-          class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded shadow-sm hover:from-blue-700 hover:to-blue-800 transition-all text-sm font-medium"
+          class="inline-flex items-center px-4 py-2 rounded shadow-sm text-sm font-medium transition-all"
+          style="background: #e3721d; color: #fff;"
           target="_blank"
         >
           <span class="mr-2">👨‍💼</span>
           Expert Consulting
-          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-          </svg>
         </a>
       </div>
 
       <!-- Main Navigation Menu -->
-      <div class="mb-4" style="margin-left: 80px; margin-right: 48px; margin-top: 16px;">
-        <nav class="bg-white border border-gray-200 rounded-lg shadow-sm">
+      <div class="mb-4" style="margin-left: 80px; margin-right: 48px; margin-top: 40px;">
+        <nav class="rounded-lg shadow-sm" style="background: #141d2c; border: 1px solid #141d2c;">
           <div class="flex overflow-x-auto">
             <button
               id="market-nav-btn"
-              class="flex-1 px-6 py-4 text-center border-b-2 border-blue-600 bg-blue-50 text-blue-700 font-medium text-sm whitespace-nowrap transition-colors"
+              class="flex-1 px-6 py-4 text-center font-medium text-sm whitespace-nowrap transition-colors"
+              style="border-bottom: 1px solid #EBF5EE; background: #141d2c; color: #fff; font-size: 18px; border-radius: 0;"
             >
               📊 Market Analysis
             </button>
+            
             <button
               id="operational-nav-btn"
-              class="flex-1 px-6 py-4 text-center border-b-2 border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 font-medium text-sm whitespace-nowrap transition-colors"
+              class="flex-1 px-6 py-4 text-center font-medium "
+              style="border-bottom: 2px solid transparent; background: #141d2c; color: #fff; font-size: 18px; border-radius: 0;"
             >
               ⚙️ Operational Metrics
             </button>
             <button
               id="financial-nav-btn"
-              class="flex-1 px-6 py-4 text-center border-b-2 border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 font-medium text-sm whitespace-nowrap transition-colors"
+              class="flex-1 px-6 py-4 text-center font-medium text-sm whitespace-nowrap transition-colors"
+              style="border-bottom: 2px solid transparent; background: #141d2c; color: #fff; font-size: 18px; border-radius: 0;"
             >
               💰 Financial Metrics
+            </button>
+            <button
+              id="suppliers-nav-btn"
+              class="flex-1 px-6 py-4 text-center font-medium text-sm whitespace-nowrap transition-colors"
+              style="border-bottom: 2px solid transparent; background: #141d2c; color: #fff; font-size: 18px; border-radius: 0;"
+            >
+              🏢 Suppliers & Resources
             </button>
           </div>
         </nav>
       </div>
 
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4" style="margin-left: 80px; margin-right: 48px;">
-          <h2 class="text-md font-medium text-blue-800 mb-2">Key Metrics</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3">
-            <div class="bg-white rounded p-2 shadow-sm">
-              <h3 class="text-xs font-medium text-gray-700 mb-1">Total Area</h3>
-              <p class="text-md font-bold mb-1" id="total-area-display">1500.0 m²</p>
+        
+
+        <!-- Key Metrics Cards -->
+
+      <div class="rounded-lg p-3 mb-4" style="margin-left: 80px; margin-right: 48px; margin-top: 60px; background: #141d2c;">
+          <h2 class="text-md font-medium mb-2" style="color: #e3721d;">Facility Planner Dashboard</h2>
+          <div class="grid gap-3" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div class="bg-white rounded p-4 shadow-sm" style="border: 1px solid #283044; background: #E3C980;">
+              <h3 class="text-sm font-medium" style="color: #283044;" mb-1">Total Area</h3>
+              <p class="text-md font-bold" style="color: #283044;" mb-1" id="total-area-display">1500.0 m²</p>
+              <p class="text-xs" style="color: #283044;" mb-1">
+                Rentable: <span id="rentable-area-display">0.0 m²</span>
+              </p>
+              <p class="text-xs" style="color: #283044;" mb-1">
+                Utilization: <span id="utilization-display">0.0%</span>
+              </p>
               <input
                 type="number"
                 id="total-area-input"
                 value="1500"
                 min="25"
                 step="1"
-                class="border rounded px-2 py-1 w-full text-xs"
+                class="border rounded px-2 py-1 w-full text-xs mt-3"
+                style="background: #d2b564;"
                 placeholder="Enter area in m²"
               />
             </div>
-            <div class="bg-white rounded p-2 shadow-sm">
-              <h3 class="text-xs font-medium text-gray-700 mb-1">
-                Rentable Area & Utilization
-              </h3>
-              <p class="text-md font-bold" id="rentable-area-display">0.0 m²</p>
-              <p class="text-xs text-gray-600 mt-1">
-                Utilization: <span id="utilization-display">0.0%</span>
-              </p>
-            </div>
-            <div class="bg-white rounded p-2 shadow-sm">
-              <h3 class="text-xs font-medium text-gray-700 mb-1">
+            <div class="bg-white rounded p-4 shadow-sm" style="border: 1px solid #283044; background: #E3C980;">
+              <h3 class="text-sm font-medium" style="color: #283044;" mb-1">
                 Monthly Revenue
               </h3>
-              <p class="text-md font-bold" id="monthly-revenue-display">
+              <p class="text-md font-bold" style="color: #283044;"" id="monthly-revenue-display">
                 €0.00
               </p>
-              <p class="text-xs text-gray-500 mt-1" id="occupancy-rate-note">
+              <p class="text-xs" style="color: #283044;" mt-1" id="occupancy-rate-note">
                 85% occupancy
               </p>
             </div>
-            <div class="bg-white rounded p-2 shadow-sm">
-              <h3 class="text-xs font-medium text-gray-700 mb-1">
-                Annual ROI
-              </h3>
-              <p class="text-md font-bold" id="annual-roi-display">
-                0.0%
-              </p>
-              <p class="text-xs text-gray-500 mt-1">
-                Return on investment
-              </p>
-            </div>
-            <div class="bg-white rounded p-2 shadow-sm">
-              <h3 class="text-xs font-medium text-gray-700 mb-1">
-                Break-even Timeline
-              </h3>
-              <p class="text-md font-bold" id="breakeven-timeline-display">
-                0 years
-              </p>
-              <p class="text-xs text-gray-500 mt-1">
-                Time to recover investment
-              </p>
-            </div>
-            <div class="bg-white rounded p-2 shadow-sm">
-              <h3 class="text-xs font-medium text-gray-700 mb-1">
-                Cost per m²
-              </h3>
-              <p class="text-md font-bold" id="cost-per-sqm-display">
-                €0.00/m²
-              </p>
-              <p class="text-xs text-gray-500 mt-1">
-                Monthly operational cost
-              </p>
-            </div>
-            <div class="bg-white rounded p-2 shadow-sm">
-              <h3 class="text-xs font-medium text-gray-700 mb-1">
-                Construction Cost per Unit
-              </h3>
-              <p class="text-md font-bold" id="construction-cost-per-unit-display">
-                €0.00
-              </p>
-              <p class="text-xs text-gray-500 mt-1">
-                Average build cost per unit
-              </p>
-            </div>
-            <div class="bg-white rounded p-2 shadow-sm">
-              <h3 class="text-xs font-medium text-gray-700 mb-1">
+            <div class="bg-white rounded p-4 shadow-sm" style="border: 1px solid #283044; background: #E3C980;">
+              <h3 class="text-sm font-medium" style="color: #283044;" mb-1>
                 Total Investment
               </h3>
-              <p class="text-md font-bold mb-1" id="total-investment-display">
+              <p class="text-md font-bold" style="color: #283044;" mb-1" id="total-investment-display">
                 €0.00
               </p>
               <input
@@ -148,21 +118,77 @@
                 value="750000"
                 min="10000"
                 step="10000"
-                class="border rounded px-2 py-1 w-full text-xs"
+                class="border rounded px-2 py-1 w-full text-xs mt-3"
+                style="background: #d2b564; opacity: 0.8;"
                 placeholder="Enter investment amount"
               />
+            </div>
+            <div class="bg-white rounded p-4 shadow-sm" style="border: 1px solid #283044; background: #E3C980;">
+              <h3 class="text-sm font-medium" style="color: #283044;" mb-1>
+                Break-even Timeline
+              </h3>
+              <p class="text-md font-bold" style="color: #283044;"" id="breakeven-timeline-display">
+                0 years
+              </p>
+              <p class="text-xs" style="color: #283044;" mt-1">
+                Time to recover investment
+              </p>
+            </div>
+            <div class="bg-white rounded p-4 shadow-sm" style="border: 1px solid #283044; background: #E3C980;">
+              <h3 class="text-sm font-medium" style="color: #283044;" mb-1>
+                Cost per m²
+              </h3>
+              <p class="text-md font-bold" style="color: #283044;" id="cost-per-sqm-display">
+                €0.00/m²
+              </p>
+              <p class="text-xs" style="color: #283044;" mt-1">
+                Total: €<span id="total-monthly-opex-display">1,700</span>
+              </p>
+            </div>
+            <div class="bg-white rounded p-4 shadow-sm" style="border: 1px solid #283044; background: #E3C980;">
+              <h3 class="text-sm font-medium" style="color: #283044;" mb-1>
+                Construction Cost per Unit
+              </h3>
+              <p class="text-md font-bold" style="color: #283044;"" id="construction-cost-per-unit-display">
+                €0.00
+              </p>
+              <p class="text-xs" style="color: #283044;" mt-1">
+                Average build cost per unit
+              </p>
+            </div>
+            <div class="bg-white rounded p-4 shadow-sm" style="border: 1px solid #283044; background: #E3C980;">
+              <h3 class="text-sm font-medium" style="color: #283044;" mb-1">
+                Annual ROI
+              </h3>
+              <p class="text-md font-bold" style="color: #283044;"" id="annual-roi-display">
+                0.0%
+              </p>
+              <p class="text-xs" style="color: #283044;" mt-1">
+                Return on investment
+              </p>
+            </div>
+            <div class="bg-white rounded p-4 shadow-sm" style="border: 1px solid #283044; background: #E3C980;">
+              <h3 class="text-sm font-medium" style="color: #283044;" mb-1">
+                Market Viability
+              </h3>
+              <p class="text-md font-bold" style="color: #283044;"" id="market-viability-display">
+                75/100
+              </p>
+              <p class="text-xs" style="color: #283044;" mt-1">
+                Site assessment score
+              </p>
             </div>
           </div>
         </div>
 
         <!-- Sub-navigation based on main nav selection -->
         <div id="market-subnav" class="mb-2" style="margin-left: 80px; margin-right: 48px; margin-top: 8px; margin-bottom: 8px;">
-          <div class="bg-white border border-gray-200 rounded-lg p-4">
-            <h3 class="text-md font-semibold text-gray-700 mb-3">Market Analysis Tools</h3>
+          <div class="rounded-lg p-4" style="background: #141d2c;">
+            <h3 class="text-md font-semibold text-gray-700 mb-4" style="color: #e3721d">Market Analysis Tools</h3>
             <div class="flex flex-wrap gap-3">
               <button
                 id="market-view-btn"
-                class="rounded bg-blue-600 text-white text-base font-medium" style="padding: 12px 32px;"
+                class="rounded text-white" style="background: #4C9693; padding: 12px 32px; margin: 0 8px;"
               >
                 Market Analysis
               </button>
@@ -171,12 +197,12 @@
         </div>
 
         <div id="operational-subnav" class="mb-2 hidden" style="margin-left: 80px; margin-right: 48px; margin-top: 8px; margin-bottom: 8px;">
-          <div class="bg-white border border-gray-200 rounded-lg p-4">
-            <h3 class="text-md font-semibold text-gray-700 mb-3">Operational Analysis Tools</h3>
+          <div class="rounded-lg p-4" style="background: #141d2c;">
+            <h3 class="text-md font-semibold text-gray-700 mb-4" style="color: #e3721d">Operational Analysis Tools</h3>
             <div class="flex flex-wrap gap-3">
               <button
                 id="layout-view-btn"
-                class="rounded bg-blue-600 text-white text-base font-medium" style="padding: 12px 32px;"
+                class="rounded text-white" style="background: #78A1BB; padding: 12px 32px; margin: 0 8px;"
               >
                 Unit Mix & Layout
               </button>
@@ -203,12 +229,12 @@
         </div>
 
         <div id="financial-subnav" class="mb-2 hidden" style="margin-left: 80px; margin-right: 48px; margin-top: 8px; margin-bottom: 8px;">
-          <div class="bg-white border border-gray-200 rounded-lg p-4">
-            <h3 class="text-md font-semibold text-gray-700 mb-3">Financial Analysis Tools</h3>
+          <div class="rounded-lg p-4" style="background: #141d2c;">
+            <h3 class="text-md font-semibold text-gray-700 mb-4" style="color: #e3721d">Financial Analysis Tools</h3>
             <div class="flex flex-wrap gap-3">
               <button
                 id="financial-view-btn"
-                class="rounded bg-blue-600 text-white text-base font-medium" style="padding: 12px 32px;"
+                class="rounded text-white" style="background: #78A1BB; padding: 12px 32px;"
               >
                 Financial View
               </button>
@@ -216,7 +242,7 @@
                 id="breakeven-view-btn"
                 class="rounded bg-gray-200 text-gray-800 text-base font-medium" style="padding: 12px 32px;"
               >
-                Breakeven Analysis
+                Break-even Analysis
               </button>
               <button
                 id="cashflow-view-btn"
@@ -233,7 +259,20 @@
             </div>
           </div>
         </div>
-      </div>
+
+        <div id="suppliers-subnav" class="mb-2 hidden" style="margin-left: 80px; margin-right: 48px; margin-top: 8px; margin-bottom: 8px;">
+          <div class="rounded-lg p-4" style="background: #141d2c;">
+            <h3 class="text-md font-semibold text-gray-700 mb-4" style="color: #e3721d">Suppliers & Resources</h3>
+            <div class="flex flex-wrap gap-3">
+              <button
+                id="suppliers-view-btn"
+                class="rounded text-white" style="background: #78A1BB; padding: 12px 32px;"
+              >
+                Suppliers & Resources
+              </button>
+            </div>
+          </div>
+        </div>
 
 
       <!-- Main Content Areas -->
@@ -243,120 +282,140 @@
         style="margin-left: 80px; margin-right: 48px; margin-top: 8px; padding: 24px;"
       >
 
-        <div>
-          <h3 class="text-lg font-medium text-gray-700 mb-2">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700 mb-2" style="color: #e3721d">
             Financial Projection
           </h3>
-          <table class="min-w-full border border-gray-300 bg-white">
+          <table class="min-w-full bg-white" style="border: 1px solid #283044;">
             <thead class="bg-gray-100">
               <tr>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a"
+                  style="border-bottom: 1px solid #283044;"
                 >
                   Metric
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a"
+                  style="border-bottom: 1px solid #283044;"
                 >
                   Monthly
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a"
+                  style="border-bottom: 1px solid #283044;"
                 >
                   Annual
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="px-4 py-2 text-sm text-gray-700 font-medium">
+              <tr class="hover:bg-gray-50" style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium">
                   Gross Revenue
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
                   id="financial-monthly-revenue"
                 >
                   €0.00
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
                   id="financial-annual-revenue"
                 >
                   €0.00
                 </td>
               </tr>
-              <tr class="border-b hover:bg-gray-50 bg-gray-50">
-                <td class="px-4 py-2 text-sm text-gray-700 font-medium">
+              <tr class="hover:bg-gray-50 bg-gray-50" style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium">
                   Operating Expenses
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
                   id="financial-monthly-expenses"
                 >
                   €0.00
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
                   id="financial-annual-expenses"
                 >
                   €0.00
                 </td>
               </tr>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="px-4 py-2 text-sm text-gray-700 font-medium">
+              <tr class="hover:bg-gray-50" style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium">
+                  Interest Expense
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
+                  id="financial-monthly-interest"
+                >
+                  €0.00
+                </td>
+                <td
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
+                  id="financial-annual-interest"
+                >
+                  €0.00
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50 bg-gray-50" style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium">
                   Net Operating Income
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium"
                   id="financial-monthly-noi"
                 >
                   €0.00
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium"
                   id="financial-annual-noi"
                 >
                   €0.00
                 </td>
               </tr>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="px-4 py-2 text-sm text-gray-700">Revenue per m²</td>
+              <tr class="hover:bg-gray-50" style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">Revenue per m²</td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
                   id="financial-revenue-per-sqm"
                   colspan="2"
                 >
                   €0.00/m²/month
                 </td>
               </tr>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="px-4 py-2 text-sm text-gray-700">
+              <tr class="hover:bg-gray-50" style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">
                   Space Utilization
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
                   id="financial-utilization"
                   colspan="2"
                 >
                   0.0%
                 </td>
               </tr>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="px-4 py-2 text-sm text-gray-700">NOI Margin</td>
+              <tr class="hover:bg-gray-50" style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">NOI Margin</td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
                   id="financial-noi-margin"
                   colspan="2"
                 >
                   0.0%
                 </td>
               </tr>
-              <tr class="border-b hover:bg-gray-50">
-                <td class="px-4 py-2 text-sm text-gray-700">
+              <tr class="hover:bg-gray-50" style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">
                   Investment Return (ROI)
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a"
                   id="financial-roi"
                   colspan="2"
                 >
@@ -367,17 +426,17 @@
           </table>
 
           <div class="mt-4 bg-white border rounded">
-            <div class="px-4 py-3 bg-gray-100 border-b">
-              <h4 class="text-sm font-medium text-gray-700">
+            <div class="px-4 py-3 bg-gray-100" style="border-bottom: 1px solid #283044;">
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a">
                 Operating Expenses
               </h4>
             </div>
             <div class="p-4">
               <div class="mb-3">
                 <div class="flex justify-between mb-1">
-                  <span class="text-xs text-gray-700">Total Expense Ratio</span>
+                  <span class="text-xs text-gray-700" style="color: #1e3a8a">Total Expense Ratio</span>
                   <span
-                    class="text-xs text-gray-700 font-medium"
+                    class="text-xs text-gray-700" style="color: #1e3a8a" font-medium"
                     id="expense-ratio-display"
                     >35.0%</span
                   >
@@ -400,9 +459,9 @@
 
               <div class="mb-3">
                 <div class="flex justify-between mb-1">
-                  <span class="text-xs text-gray-700">Occupancy Rate</span>
+                  <span class="text-xs text-gray-700" style="color: #1e3a8a">Occupancy Rate</span>
                   <span
-                    class="text-xs text-gray-700 font-medium"
+                    class="text-xs text-gray-700" style="color: #1e3a8a" font-medium"
                     id="occupancy-rate-display"
                     >85%</span
                   >
@@ -423,7 +482,7 @@
                 </div>
               </div>
 
-              <div class="bg-blue-50 p-2 rounded text-xs text-gray-700 mb-3">
+              <div class="bg-blue-50 p-2 rounded text-xs text-gray-700" style="color: #1e3a8a" mb-3">
                 <p>
                   Typical self-storage expenses include property taxes (5-15%),
                   insurance (2-4%), utilities (3-6%), maintenance (3-7%), staff
@@ -433,7 +492,7 @@
 
               <div class="grid grid-cols-2 gap-2">
                 <div>
-                  <h5 class="text-xs font-medium text-gray-700 mb-2">
+                  <h5 class="text-xs font-medium text-gray-700" style="color: #1e3a8a" mb-2">
                     Key Expense Categories:
                   </h5>
                   <ul class="text-xs text-gray-600 list-disc pl-4 mb-0">
@@ -445,7 +504,7 @@
                   </ul>
                 </div>
                 <div>
-                  <h5 class="text-xs font-medium text-gray-700 mb-2">
+                  <h5 class="text-xs font-medium text-gray-700" style="color: #1e3a8a" mb-2">
                     Financial Metrics:
                   </h5>
                   <div class="text-xs text-gray-600">
@@ -471,20 +530,20 @@
 
       <div id="layout-view" class="hidden" style="margin-left: 80px; margin-right: 48px; margin-top: 8px; padding: 12px 16px;">
         <!-- Unit Mix Ratios Controls -->
-        <div class="mb-6 bg-white p-4 rounded-lg border" id="unit-mix-section">
-          <h2 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="mb-6 p-4 rounded-lg border" style="background: #fff; opacity: 0.9;" id="unit-mix-section">
+          <h2 class="text-lg font-medium text-gray-700 mb-4" style="color: #1e3a8a">
             Unit Mix Ratios
           </h2>
 
           <!-- Mix Presets -->
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1"
+            <label class="block text-sm font-medium text-gray-700 mb-1" style="color: #1e3a8a"
               >Mix Presets</label
             >
             <div class="flex flex-wrap gap-2" id="mix-presets-container">
               <button
                 id="preset-custom"
-                class="px-3 py-1 text-sm rounded bg-blue-600 text-white"
+                class="px-3 py-1 text-sm rounded text-white" style="background: #78A1BB;"
               >
                 Custom Mix
               </button>
@@ -522,7 +581,7 @@
           <!-- Total Mix Percentage Indicator -->
           <div
             id="mix-total-indicator"
-            class="mb-3 bg-yellow-50 border border-yellow-200 rounded p-2 hidden"
+            class="mb-3 bg-yellow-50 rounded p-2 hidden" style="border: 1px solid #283044;"
           >
             <div class="flex justify-between items-center">
               <span class="text-sm text-yellow-800">
@@ -530,7 +589,7 @@
               </span>
               <button
                 id="auto-balance-btn"
-                class="bg-blue-600 text-white text-xs px-2 py-1 rounded"
+                class="text-white text-xs px-2 py-1 rounded" style="background: #78A1BB;"
               >
                 Auto-Balance to 100%
               </button>
@@ -557,33 +616,33 @@
         </div>
 
         <!-- Unit Summary -->
-        <div class="bg-white p-4 rounded-lg border mb-6">
-          <h3 class="text-lg font-medium text-gray-700 mb-2">Unit Summary</h3>
-          <table class="min-w-full border border-gray-300 bg-white">
+        <div class="p-4 rounded-lg border mb-6" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-2">Unit Summary</h3>
+          <table class="min-w-full bg-white" style="border: 1px solid #283044;">
             <thead class="bg-gray-100">
               <tr>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Unit Size
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Area
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Count
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Total Area
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Monthly Revenue
                 </th>
@@ -597,15 +656,15 @@
 
         <!-- Layout Charts -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6" style="margin-bottom: 24px;">
-          <div class="bg-white p-4 rounded-lg border">
-            <h3 class="text-lg font-medium text-gray-700 mb-4">
+          <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+            <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
               Revenue by Unit Type
             </h3>
             <div id="revenue-chart" style="width: 100%; height: 300px"></div>
           </div>
 
-          <div class="bg-white p-4 rounded-lg border">
-            <h3 class="text-lg font-medium text-gray-700 mb-4">
+          <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+            <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
               Unit Mix Distribution
             </h3>
             <div id="unit-mix-chart" style="width: 100%; height: 300px"></div>
@@ -613,12 +672,12 @@
         </div>
 
         <!-- Space Allocation -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Space Allocation
           </h3>
           <div class="flex mb-4">
-            <div class="flex-1 border-r pr-2">
+            <div class="flex-1 pr-2" style="border-right: 1px solid #283044;">
               <h4 class="text-sm font-medium mb-2">Rentable Area</h4>
               <div class="flex gap-2 items-center">
                 <div class="bg-green-500 w-3 h-3 rounded-full"></div>
@@ -659,13 +718,13 @@
         class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden"
         style="margin-left: 80px; margin-right: 48px; margin-top: 8px; padding: 24px;"
       >
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Investment Analysis
           </h3>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
               Construction Cost per m²
             </label>
             <div class="flex gap-2">
@@ -681,54 +740,54 @@
             </div>
           </div>
 
-          <table class="min-w-full border border-gray-300">
+          <table class="min-w-full" style="border: 1px solid #283044;">
             <tbody>
-              <tr class="border-b">
-                <td class="px-4 py-2 text-sm text-gray-700">
+              <tr style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">
                   Total Construction Cost
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium"
                   id="total-construction-cost"
                 >
                   €0.00
                 </td>
               </tr>
-              <tr class="border-b">
-                <td class="px-4 py-2 text-sm text-gray-700">Annual NOI</td>
+              <tr style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">Annual NOI</td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium"
                   id="breakeven-annual-noi"
                 >
                   €0.00
                 </td>
               </tr>
-              <tr class="border-b">
-                <td class="px-4 py-2 text-sm text-gray-700">
+              <tr style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">
                   Return on Investment (ROI)
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium"
                   id="breakeven-roi"
                 >
                   0.00% annually
                 </td>
               </tr>
-              <tr class="border-b">
-                <td class="px-4 py-2 text-sm text-gray-700">
+              <tr style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">
                   Break-even Period
                 </td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium"
                   id="breakeven-period"
                 >
                   0.0 years
                 </td>
               </tr>
-              <tr class="border-b">
-                <td class="px-4 py-2 text-sm text-gray-700">Cost per Unit</td>
+              <tr style="border-bottom: 1px solid #283044;">
+                <td class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a">Cost per Unit</td>
                 <td
-                  class="px-4 py-2 text-sm text-gray-700 font-medium"
+                  class="px-4 py-2 text-sm text-gray-700" style="color: #1e3a8a" font-medium"
                   id="cost-per-unit"
                 >
                   €0.00
@@ -739,7 +798,7 @@
 
           <div class="mt-4 bg-blue-50 p-3 rounded text-sm">
             <p class="font-medium text-blue-800 mb-1">Investment Notes:</p>
-            <ul class="text-xs text-gray-700 list-disc pl-4 mb-0">
+            <ul class="text-xs text-gray-700" style="color: #1e3a8a" list-disc pl-4 mb-0">
               <li>
                 Industry average ROI for self-storage facilities is between
                 6-10%
@@ -756,8 +815,8 @@
           </div>
         </div>
 
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Phased Development Plan
           </h3>
 
@@ -766,26 +825,26 @@
             while generating revenue to help fund future phases.
           </p>
 
-          <table class="min-w-full border border-gray-300">
+          <table class="min-w-full" style="border: 1px solid #283044;">
             <thead class="bg-gray-100">
               <tr>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Phase
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Area (m²)
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Investment
                 </th>
                 <th
-                  class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b"
+                  class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b"
                 >
                   Annual Revenue
                 </th>
@@ -797,12 +856,12 @@
           </table>
 
           <div
-            class="mt-4 bg-yellow-50 p-3 rounded text-sm border border-yellow-100"
+            class="mt-4 bg-yellow-50 p-3 rounded text-sm" style="border: 1px solid #283044;"
           >
             <p class="font-medium text-yellow-800 mb-1">
               Phasing Considerations:
             </p>
-            <ul class="text-xs text-gray-700 list-disc pl-4 mb-0">
+            <ul class="text-xs text-gray-700" style="color: #1e3a8a" list-disc pl-4 mb-0">
               <li>
                 Phase 1: Build core facility with essential infrastructure
               </li>
@@ -827,13 +886,13 @@
         class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden"
         style="margin-left: 80px; margin-right: 48px; margin-top: 8px; padding: 24px;"
       >
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Lease-up Timeline Modeling
           </h3>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
               Monthly Lease-up Rate
             </label>
             <div class="flex gap-2 items-center">
@@ -854,7 +913,7 @@
           </div>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
               Ramp-up Period
             </label>
             <div class="flex gap-2 items-center">
@@ -874,16 +933,16 @@
             </p>
           </div>
 
-          <table class="min-w-full border border-gray-300">
+          <table class="min-w-full" style="border: 1px solid #283044;">
             <thead class="bg-gray-100">
               <tr>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">
+                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">
                   Milestone
                 </th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">
+                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">
                   Timeline
                 </th>
-                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">
+                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">
                   Revenue
                 </th>
               </tr>
@@ -895,7 +954,7 @@
 
           <div class="mt-4 bg-blue-50 p-3 rounded text-sm">
             <p class="font-medium text-blue-800 mb-1">Lease-up Factors:</p>
-            <ul class="text-xs text-gray-700 list-disc pl-4 mb-0">
+            <ul class="text-xs text-gray-700" style="color: #1e3a8a" list-disc pl-4 mb-0">
               <li>Market competition and saturation</li>
               <li>Marketing budget and effectiveness</li>
               <li>Location visibility and accessibility</li>
@@ -905,8 +964,8 @@
           </div>
         </div>
 
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Revenue Projection Timeline
           </h3>
           <div id="leaseup-chart" style="width: 100%; height: 400px"></div>
@@ -914,25 +973,25 @@
           <div class="mt-4">
             <div class="grid grid-cols-2 gap-4">
               <div class="bg-gray-50 p-3 rounded">
-                <h4 class="text-sm font-medium text-gray-700 mb-2">Break-even Timeline</h4>
+                <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Break-even Timeline</h4>
                 <div class="text-lg font-bold text-blue-600" id="breakeven-timeline">
                   0 months
                 </div>
-                <p class="text-xs text-gray-500">Time to cover operating expenses</p>
+                <p class="text-xs" style="color: #283044;"">Time to cover operating expenses</p>
               </div>
               <div class="bg-gray-50 p-3 rounded">
-                <h4 class="text-sm font-medium text-gray-700 mb-2">80% Occupancy</h4>
+                <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">80% Occupancy</h4>
                 <div class="text-lg font-bold text-green-600" id="target-occupancy-timeline">
                   0 months
                 </div>
-                <p class="text-xs text-gray-500">Industry benchmark for mature facility</p>
+                <p class="text-xs" style="color: #283044;"">Industry benchmark for mature facility</p>
               </div>
             </div>
           </div>
 
-          <div class="mt-4 bg-yellow-50 p-3 rounded text-sm border border-yellow-100">
+          <div class="mt-4 bg-yellow-50 p-3 rounded text-sm" style="border: 1px solid #283044;">
             <p class="font-medium text-yellow-800 mb-1">Cash Flow Considerations:</p>
-            <ul class="text-xs text-gray-700 list-disc pl-4 mb-0">
+            <ul class="text-xs text-gray-700" style="color: #1e3a8a" list-disc pl-4 mb-0">
               <li>Initial months require significant cash reserves</li>
               <li>Marketing costs are highest in first 6-12 months</li>
               <li>Consider promotional pricing for early customers</li>
@@ -948,13 +1007,13 @@
         style="margin-left: 80px; margin-right: 48px; margin-top: 0px; padding: 12px 16px;"
       >
         <!-- Site Location & Basic Info -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Site Location Analysis
           </h3>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
               Property Address/Location
             </label>
             <input
@@ -970,7 +1029,7 @@
 
           <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Population Density
               </label>
               <div class="flex gap-2 items-center">
@@ -986,7 +1045,7 @@
               </div>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Median Income
               </label>
               <div class="flex gap-2 items-center">
@@ -1005,7 +1064,7 @@
 
           <div class="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Housing Turnover Rate
               </label>
               <div class="flex gap-2 items-center">
@@ -1022,7 +1081,7 @@
               </div>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Distance to City Center
               </label>
               <div class="flex gap-2 items-center">
@@ -1041,7 +1100,7 @@
           </div>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">
               Site Characteristics
             </label>
             <div class="space-y-2">
@@ -1066,13 +1125,13 @@
         </div>
 
         <!-- Competition Analysis -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Competition & Market Saturation
           </h3>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
               Existing Facilities (5km radius)
             </label>
             <input
@@ -1090,7 +1149,7 @@
           </div>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
               Average Competitor Price (10m² unit)
             </label>
             <div class="flex gap-2 items-center">
@@ -1108,7 +1167,7 @@
           </div>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
               Estimated Market Occupancy
             </label>
             <div class="flex gap-2 items-center">
@@ -1129,7 +1188,7 @@
           </div>
 
           <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">
+            <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">
               Market Demand Drivers
             </label>
             <div class="space-y-2">
@@ -1154,8 +1213,8 @@
         </div>
 
         <!-- Market Viability Score -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Market Viability Assessment
           </h3>
 
@@ -1181,17 +1240,17 @@
 
           <div class="space-y-3">
             <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-700">Demographics Score</span>
+              <span class="text-sm text-gray-700" style="color: #1e3a8a">Demographics Score</span>
               <div class="flex items-center">
                 <div class="w-24 bg-gray-200 h-2 rounded-full mr-2">
-                  <div id="demographics-bar" class="h-full rounded-full bg-blue-500" style="width: 80%"></div>
+                  <div id="demographics-bar" class="h-full rounded-full text-white" style="background: #78A1BB;"" style="width: 80%"></div>
                 </div>
                 <span class="text-sm font-medium" id="demographics-score">80</span>
               </div>
             </div>
 
             <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-700">Competition Score</span>
+              <span class="text-sm text-gray-700" style="color: #1e3a8a">Competition Score</span>
               <div class="flex items-center">
                 <div class="w-24 bg-gray-200 h-2 rounded-full mr-2">
                   <div id="competition-bar" class="h-full rounded-full bg-green-500" style="width: 70%"></div>
@@ -1201,7 +1260,7 @@
             </div>
 
             <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-700">Site Quality Score</span>
+              <span class="text-sm text-gray-700" style="color: #1e3a8a">Site Quality Score</span>
               <div class="flex items-center">
                 <div class="w-24 bg-gray-200 h-2 rounded-full mr-2">
                   <div id="site-quality-bar" class="h-full rounded-full bg-yellow-500" style="width: 75%"></div>
@@ -1213,21 +1272,21 @@
 
           <div class="mt-4 p-3 rounded" id="viability-recommendation">
             <p class="font-medium text-green-800 mb-1">✓ Recommended Site</p>
-            <p class="text-sm text-gray-700">
+            <p class="text-sm text-gray-700" style="color: #1e3a8a">
               This location shows strong potential for a self-storage facility based on demographics, competition analysis, and site characteristics.
             </p>
           </div>
         </div>
 
         <!-- Market Insights & Recommendations -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Market Insights & Recommendations
           </h3>
 
           <div class="space-y-4">
             <div>
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Key Market Metrics</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Key Market Metrics</h4>
               <div class="grid grid-cols-2 gap-3 text-sm">
                 <div class="bg-gray-50 p-2 rounded">
                   <div class="text-gray-600">Demand Index</div>
@@ -1249,7 +1308,7 @@
             </div>
 
             <div>
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Strategic Recommendations</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Strategic Recommendations</h4>
               <div class="space-y-2 text-sm" id="strategic-recommendations">
                 <div class="flex items-start">
                   <span class="text-green-600 mr-2">•</span>
@@ -1267,7 +1326,7 @@
             </div>
 
             <div>
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Risk Factors</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Risk Factors</h4>
               <div class="space-y-2 text-sm" id="risk-factors">
                 <div class="flex items-start">
                   <span class="text-yellow-600 mr-2">⚠</span>
@@ -1282,7 +1341,7 @@
 
             <div class="mt-4 bg-blue-50 p-3 rounded text-sm">
               <p class="font-medium text-blue-800 mb-1">Next Steps:</p>
-              <ul class="text-xs text-gray-700 list-disc pl-4 mb-0">
+              <ul class="text-xs text-gray-700" style="color: #1e3a8a" list-disc pl-4 mb-0">
                 <li>Conduct physical site survey for zoning compliance</li>
                 <li>Research local permit requirements and timelines</li>
                 <li>Analyze traffic patterns and seasonal variations</li>
@@ -1300,8 +1359,8 @@
         style="margin-left: 80px; margin-right: 48px; margin-top: 8px; padding: 24px;"
       >
         <!-- Monthly Operating Expenses -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Monthly Operating Expenses
           </h3>
           
@@ -1343,44 +1402,44 @@
         </div>
 
         <!-- Operating Expense Controls -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Adjust Operating Expenses
           </h3>
           
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Property Management (€/month)</label>
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Property Management (€/month)</label>
               <input type="range" id="mgmt-slider" min="200" max="800" value="450" class="w-full">
               <span class="text-xs text-gray-500">Typically 3-8% of gross revenue</span>
             </div>
             
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Utilities (€/month)</label>
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Utilities (€/month)</label>
               <input type="range" id="utilities-slider" min="150" max="600" value="320" class="w-full">
               <span class="text-xs text-gray-500">Lighting, climate control, water</span>
             </div>
             
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Insurance (€/month)</label>
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Insurance (€/month)</label>
               <input type="range" id="insurance-slider" min="100" max="350" value="180" class="w-full">
               <span class="text-xs text-gray-500">Property & liability coverage</span>
             </div>
             
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Security System (€/month)</label>
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Security System (€/month)</label>
               <input type="range" id="security-slider" min="75" max="250" value="125" class="w-full">
               <span class="text-xs text-gray-500">Cameras, access control, monitoring</span>
             </div>
             
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Maintenance & Repairs (€/month)</label>
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Maintenance & Repairs (€/month)</label>
               <input type="range" id="maintenance-slider" min="150" max="500" value="275" class="w-full">
               <span class="text-xs text-gray-500">Preventive maintenance, repairs</span>
             </div>
             
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Marketing & Advertising (€/month)</label>
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Marketing & Advertising (€/month)</label>
               <input type="range" id="marketing-slider" min="100" max="400" value="200" class="w-full">
               <span class="text-xs text-gray-500">Online ads, signage, promotions</span>
             </div>
@@ -1388,8 +1447,8 @@
         </div>
 
         <!-- Expense Analysis -->
-        <div class="bg-white p-4 rounded-lg border md:col-span-2">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border md:col-span-2" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Operating Expense Analysis
           </h3>
           
@@ -1414,7 +1473,7 @@
           </div>
           
           <div class="mt-4 p-3 bg-gray-50 rounded">
-            <h4 class="text-sm font-medium text-gray-700 mb-2">Industry Benchmarks</h4>
+            <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Industry Benchmarks</h4>
             <ul class="text-xs text-gray-600 space-y-1">
               <li>• Total OpEx should be 35-50% of gross revenue</li>
               <li>• Property management: 3-8% of revenue</li>
@@ -1432,15 +1491,15 @@
         style="margin-left: 80px; margin-right: 48px; margin-top: 8px; padding: 24px;"
       >
         <!-- Category Filter Bar -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Self-Storage Industry Suppliers & Resources
           </h3>
           
           <div class="flex flex-wrap gap-2 mb-4">
             <button
               id="filter-all"
-              class="px-3 py-1 text-sm rounded bg-blue-600 text-white"
+              class="px-3 py-1 text-sm rounded text-white" style="background: #78A1BB;" text-white"
             >
               All Categories
             </button>
@@ -1491,9 +1550,9 @@
             />
           </div>
 
-          <div class="bg-yellow-50 border border-yellow-200 rounded p-3 text-sm">
+          <div class="bg-yellow-50 rounded p-3 text-sm" style="border: 1px solid #283044;">
             <p class="text-yellow-800 font-medium mb-1">💡 Affiliate Disclosure</p>
-            <p class="text-gray-700">
+            <p class="text-gray-700" style="color: #1e3a8a">
               Some links below are affiliate links. We may earn a commission when you make purchases through these links, at no additional cost to you. This helps support the development of this free planning tool.
             </p>
           </div>
@@ -1505,12 +1564,12 @@
         </div>
 
         <!-- Recommended Suppliers Based on Your Project -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             📋 Recommended for Your Project
           </h3>
           
-          <div class="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+          <div class="bg-blue-50 rounded p-3 mb-4" style="border: 1px solid #283044;">
             <p class="text-sm text-blue-800 mb-2">
               Based on your facility size (<span id="rec-facility-size">1500m²</span>) and location, here are our top recommendations:
             </p>
@@ -1522,14 +1581,14 @@
         </div>
 
         <!-- Industry Resources -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             📚 Industry Resources & Education
           </h3>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Trade Associations</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Trade Associations</h4>
               <div class="space-y-2 text-sm">
                 <a href="https://www.selfstorage.org/" target="_blank" class="flex items-center text-blue-600 hover:text-blue-800">
                   <span class="mr-2">🏢</span>
@@ -1543,7 +1602,7 @@
             </div>
             
             <div>
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Industry Publications</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Industry Publications</h4>
               <div class="space-y-2 text-sm">
                 <a href="https://www.insideselfstorage.com/" target="_blank" class="flex items-center text-blue-600 hover:text-blue-800">
                   <span class="mr-2">📰</span>
@@ -1565,14 +1624,14 @@
         style="margin-left: 80px; margin-right: 48px; margin-top: 8px; padding: 24px;"
       >
         <!-- Cash Flow Controls -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Cash Flow Analysis - 5 Year Projection
           </h3>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Initial Investment
               </label>
               <div class="flex gap-2 items-center">
@@ -1586,12 +1645,12 @@
                 />
                 <span class="text-sm text-gray-600">€</span>
               </div>
-              <p class="text-xs text-gray-500 mt-1">
+              <p class="text-xs" style="color: #283044;" mt-1">
                 Construction + land + equipment costs
               </p>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Working Capital Reserve
               </label>
               <div class="flex gap-2 items-center">
@@ -1605,12 +1664,12 @@
                 />
                 <span class="text-sm text-gray-600">€</span>
               </div>
-              <p class="text-xs text-gray-500 mt-1">
+              <p class="text-xs" style="color: #283044;" mt-1">
                 6-12 months operating expenses
               </p>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Loan Amount (if any)
               </label>
               <div class="flex gap-2 items-center">
@@ -1624,7 +1683,7 @@
                 />
                 <span class="text-sm text-gray-600">€</span>
               </div>
-              <p class="text-xs text-gray-500 mt-1">
+              <p class="text-xs" style="color: #283044;" mt-1">
                 Bank financing portion
               </p>
             </div>
@@ -1632,7 +1691,7 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Interest Rate
               </label>
               <div class="flex gap-2 items-center">
@@ -1649,7 +1708,7 @@
               </div>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
+              <label class="block text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-1">
                 Loan Term
               </label>
               <div class="flex gap-2 items-center">
@@ -1669,28 +1728,28 @@
         </div>
 
         <!-- Cash Flow Chart -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Monthly Cash Flow Projection
           </h3>
           <div id="cashflow-chart" style="width: 100%; height: 400px"></div>
         </div>
 
         <!-- Cash Flow Summary Table -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Annual Cash Flow Summary
           </h3>
           <div class="overflow-x-auto">
-            <table class="min-w-full border border-gray-300">
+            <table class="min-w-full" style="border: 1px solid #283044;">
               <thead class="bg-gray-100">
                 <tr>
-                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">Year</th>
-                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">Gross Revenue</th>
-                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">Operating Expenses</th>
-                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">Debt Service</th>
-                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">Net Cash Flow</th>
-                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 border-b">Cumulative Cash</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">Year</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">Gross Revenue</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">Operating Expenses</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">Debt Service</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">Net Cash Flow</th>
+                  <th class="px-4 py-2 text-left text-sm font-medium text-gray-700" style="color: #1e3a8a" border-b">Cumulative Cash</th>
                 </tr>
               </thead>
               <tbody id="cashflow-summary-table">
@@ -1701,31 +1760,31 @@
         </div>
 
         <!-- Key Financial Metrics -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Key Financial Metrics
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="bg-blue-50 p-3 rounded">
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Cash Positive Month</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Cash Positive Month</h4>
               <div class="text-xl font-bold text-blue-600" id="cash-positive-month">
                 Month 0
               </div>
-              <p class="text-xs text-gray-500">When monthly cash flow turns positive</p>
+              <p class="text-xs" style="color: #283044;"">When monthly cash flow turns positive</p>
             </div>
             <div class="bg-green-50 p-3 rounded">
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Break-even Timeline</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Break-even Timeline</h4>
               <div class="text-xl font-bold text-green-600" id="cumulative-positive-month">
                 Month 0
               </div>
-              <p class="text-xs text-gray-500">When cumulative cash turns positive</p>
+              <p class="text-xs" style="color: #283044;"">When cumulative cash turns positive</p>
             </div>
             <div class="bg-yellow-50 p-3 rounded">
-              <h4 class="text-sm font-medium text-gray-700 mb-2">5-Year Cash Position</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">5-Year Cash Position</h4>
               <div class="text-xl font-bold text-yellow-600" id="five-year-cash">
                 €0
               </div>
-              <p class="text-xs text-gray-500">Total cash accumulated after 5 years</p>
+              <p class="text-xs" style="color: #283044;"">Total cash accumulated after 5 years</p>
             </div>
           </div>
         </div>
@@ -1737,8 +1796,8 @@
         style="margin-left: 80px; margin-right: 48px; margin-top: 8px; padding: 24px;"
       >
         <!-- Sensitivity Analysis Controls -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Sensitivity Analysis - Variable Impact Testing
           </h3>
           
@@ -1749,7 +1808,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Variable 1 Controls -->
             <div class="border rounded-lg p-4">
-              <h4 class="text-sm font-medium text-gray-700 mb-3">Variable 1: Rent Prices</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-3">Variable 1: Rent Prices</h4>
               <div class="mb-3">
                 <label class="block text-xs text-gray-600 mb-1">Test Range</label>
                 <div class="flex gap-2 items-center">
@@ -1763,7 +1822,7 @@
 
             <!-- Variable 2 Controls -->
             <div class="border rounded-lg p-4">
-              <h4 class="text-sm font-medium text-gray-700 mb-3">Variable 2: Occupancy Rate</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-3">Variable 2: Occupancy Rate</h4>
               <div class="mb-3">
                 <label class="block text-xs text-gray-600 mb-1">Test Range</label>
                 <div class="flex gap-2 items-center">
@@ -1778,7 +1837,7 @@
 
           <button 
             id="run-sensitivity-btn"
-            class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            class="mt-4 px-4 py-2 text-white" style="background: #78A1BB;" text-white rounded hover:bg-blue-700 transition-colors"
             onclick="console.log('Button clicked'); if(window.runSensitivityAnalysis) { window.runSensitivityAnalysis(); } else { alert('Function not found!'); }"
           >
             Run Sensitivity Analysis
@@ -1786,38 +1845,38 @@
         </div>
 
         <!-- Sensitivity Results -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Sensitivity Results - NPV Impact
           </h3>
           <div id="sensitivity-chart" style="width: 100%; height: 400px"></div>
         </div>
 
         <!-- Sensitivity Summary Table -->
-        <div class="bg-white p-4 rounded-lg border">
-          <h3 class="text-lg font-medium text-gray-700 mb-4">
+        <div class="p-4 rounded-lg border" style="background: #fff; opacity: 0.9;">
+          <h3 class="text-lg font-medium text-gray-700" style="color: #e3721d" mb-4">
             Risk Assessment Summary
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Best Case Scenario</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Best Case Scenario</h4>
               <div class="bg-green-50 p-3 rounded">
                 <div class="text-lg font-bold text-green-600" id="best-case-npv">€0</div>
-                <p class="text-xs text-gray-600">NPV with favorable conditions</p>
+                <p class="text-xs" style="color: #283044;"">NPV with favorable conditions</p>
               </div>
             </div>
             <div>
-              <h4 class="text-sm font-medium text-gray-700 mb-2">Worst Case Scenario</h4>
+              <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Worst Case Scenario</h4>
               <div class="bg-red-50 p-3 rounded">
                 <div class="text-lg font-bold text-red-600" id="worst-case-npv">€0</div>
-                <p class="text-xs text-gray-600">NPV with unfavorable conditions</p>
+                <p class="text-xs" style="color: #283044;"">NPV with unfavorable conditions</p>
               </div>
             </div>
           </div>
           
           <div class="mt-4">
-            <h4 class="text-sm font-medium text-gray-700 mb-2">Key Insights</h4>
-            <div id="sensitivity-insights" class="space-y-2 text-sm text-gray-700">
+            <h4 class="text-sm font-medium text-gray-700" style="color: #1e3a8a" mb-2">Key Insights</h4>
+            <div id="sensitivity-insights" class="space-y-2 text-sm text-gray-700" style="color: #1e3a8a">
               <!-- Insights will be populated by JavaScript -->
             </div>
           </div>
